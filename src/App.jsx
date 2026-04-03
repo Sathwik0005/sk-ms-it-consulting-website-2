@@ -2,7 +2,7 @@ import TopBanner from './components/TopBanner/TopBanner'
 import Header from './components/Header/Header'
 import HeroSection from './components/HeroSection/HeroSection'
 import ServicesSection from './components/ServicesSection/Servicessection'
-import WhyChooseUs from './components/WhyChooseUs/WhyChooseUs
+import WhyChooseUs from './components/WhyChooseUs/WhyChooseUs'
 import ITSolutions from './components/ITSolutions/ITSolutions'
 import CyberSecurity from './components/CyberSecurity/CyberSecurity'
 import Sectors from './components/Sectors/Sectors'
