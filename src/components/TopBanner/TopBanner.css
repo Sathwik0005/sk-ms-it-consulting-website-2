@@ -1,0 +1,39 @@
+.top-banner {
+  background: var(--dark);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(244, 131, 61, 0.25);
+}
+
+.banner-track {
+  display: inline-flex;
+  animation: scrollBanner 30s linear infinite;
+}
+
+.banner-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255,255,255,0.88);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  padding: 0 36px;
+}
+
+.banner-dot {
+  color: var(--accent-orange);
+  font-size: 0.5rem;
+  flex-shrink: 0;
+}
+
+@keyframes scrollBanner {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.top-banner:hover .banner-track {
+  animation-play-state: paused;
+}
