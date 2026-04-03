@@ -1,15 +1,15 @@
-import TopBanner from './components/TopBanner/TopBanner'
-import Header from './components/Header/Header'
-import HeroSection from './components/HeroSection/HeroSection'
-import ServicesSection from './components/ServicesSection/Servicessection'
-import WhyChooseUs from './components/WhyChooseUs/WhyChooseUs'
-import ITSolutions from './components/ITSolutions/ITSolutions'
-import CyberSecurity from './components/CyberSecurity/CyberSecurity'
-import Sectors from './components/Sectors/Sectors'
-import Testimonials from './components/Testimonials/Testimonials'
-import ContactSection from './components/ContactSection/ContactSection'
-import Footer from './components/Footer/Footer'
-import './App.css'
+import TopBanner from "./components/TopBanner/TopBanner";
+import Header from "./components/Header/Header";
+import HeroSection from "./components/HeroSection/HeroSection";
+import ServicesSection from "./components/ServicesSection/ServicesSection";
+import WhyChooseUs from "./components/WhyChooseUs/WhyChooseUs";
+import ITSolutions from "./components/ITSolutions/ITSolutions";
+import CyberSecurity from "./components/CyberSecurity/CyberSecurity";
+import Sectors from "./components/Sectors/Sectors";
+import Testimonials from "./components/Testimonials/Testimonials";
+import ContactSection from "./components/ContactSection/ContactSection";
+import Footer from "./components/Footer/Footer";
+import "./App.css";
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
       </main>
       <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
