@@ -1,66 +1,69 @@
 import { useState, useEffect } from 'react'
-import logo from '../assets/website-logo.png'
+import { Link, useNavigate } from 'react-router-dom'
 import './Header.css'
 
 const navItems = [
   {
     label: 'Services',
     children: [
-      { label: 'Managed IT Services', href: '#services' },
-      { label: 'IT Support & Helpdesk', href: '#services' },
-      { label: 'IT Consultancy', href: '#services' },
-      { label: 'Co-Managed IT Support', href: '#services' },
-      { label: 'IT Procurement', href: '#services' },
+      { label: 'Managed IT Services',   href: '/services/managed-it-services' },
+      { label: 'IT Support & Helpdesk', href: '/services/it-support-helpdesk' },
+      { label: 'IT Consultancy',        href: '/services/it-consultancy' },
+      { label: 'Co-Managed IT Support', href: '/services/co-managed-it-support' },
+      { label: 'IT Procurement',        href: '/services/it-procurement' },
     ],
   },
   {
     label: 'Solutions',
     children: [
-      { label: 'Cloud Solutions', href: '#solutions' },
-      { label: 'Microsoft Azure', href: '#solutions' },
-      { label: 'Microsoft 365', href: '#solutions' },
-      { label: 'Backup & Disaster Recovery', href: '#solutions' },
-      { label: 'Business Apps & ERP', href: '#solutions' },
-      { label: 'Microsoft Power Platform', href: '#solutions' },
+      { label: 'Cloud Solutions',             href: '/solutions/cloud-solutions' },
+      { label: 'Microsoft Azure',             href: '/solutions/microsoft-azure' },
+      { label: 'Microsoft 365',              href: '/solutions/microsoft-365' },
+      { label: 'Backup & Disaster Recovery', href: '/solutions/backup-disaster-recovery' },
+      { label: 'Business Apps & ERP',        href: '/solutions/business-apps-erp' },
+      { label: 'Microsoft Power Platform',   href: '/solutions/microsoft-power-platform' },
     ],
   },
   {
     label: 'Cyber Security',
     children: [
-      { label: 'Cyber Security Services', href: '#cyber' },
-      { label: 'Cyber Essentials', href: '#cyber' },
-      { label: 'Endpoint Security', href: '#cyber' },
-      { label: 'Email Security', href: '#cyber' },
-      { label: 'Managed Firewall', href: '#cyber' },
-      { label: 'Security Risk Assessment', href: '#cyber' },
+      { label: 'Cyber Security Services',  href: '/cyber-security/cyber-security-services' },
+      { label: 'Cyber Essentials',         href: '/cyber-security/cyber-essentials' },
+      { label: 'Endpoint Security',        href: '/cyber-security/endpoint-security' },
+      { label: 'Email Security',           href: '/cyber-security/email-security' },
+      { label: 'Managed Firewall',         href: '/cyber-security/managed-firewall' },
+      { label: 'Security Risk Assessment', href: '/cyber-security/security-risk-assessment' },
     ],
   },
   {
     label: 'Sectors',
     children: [
-      { label: 'Education & Schools', href: '#sectors' },
-      { label: 'Manufacturing', href: '#sectors' },
-      { label: 'Charities & Non-Profits', href: '#sectors' },
-      { label: 'Professional Services', href: '#sectors' },
-      { label: 'Healthcare', href: '#sectors' },
+      { label: 'Education & Schools',     href: '/sectors/education-schools' },
+      { label: 'Manufacturing',           href: '/sectors/manufacturing' },
+      { label: 'Charities & Non-Profits', href: '/sectors/charities-non-profits' },
+      { label: 'Professional Services',   href: '/sectors/professional-services' },
+      { label: 'Healthcare',              href: '/sectors/healthcare' },
     ],
   },
   {
     label: 'About',
     children: [
-      { label: 'About Us', href: '#about' },
-      { label: 'Our Team', href: '#about' },
-      { label: 'Case Studies', href: '#about' },
-      { label: 'Blog & Insights', href: '#about' },
+      { label: 'About Us',        href: '/about/about-us' },
+      { label: 'Our Team',        href: '/about/our-team' },
+      { label: 'Case Studies',    href: '/about/case-studies' },
+      { label: 'Blog & Insights', href: '/about/blog-insights' },
     ],
   },
 ]
 
+const isRoute = (href) => href.startsWith('/')
+
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false)
+  const [scrolled, setScrolled]             = useState(false)
   const [activeDropdown, setActiveDropdown] = useState(null)
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const [mobileOpen, setMobileOpen]         = useState(false)
   const [mobileExpanded, setMobileExpanded] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -68,21 +71,33 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const handleChildClick = (href) => {
+    setActiveDropdown(null)
+    setMobileOpen(false)
+    if (isRoute(href)) {
+      navigate(href)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
   return (
     <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
       <div className="header__inner container">
-        {/* Logo */}
-        <a href="#" className="header__logo">
-          <div className="logo-section">
-            <img src={logo} className='logo-img' />
+
+        <Link to="/" className="header__logo">
+          <div className="logo-icon">
+            <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+              <rect width="44" height="44" rx="8" fill="#0a2463"/>
+              <path d="M10 30L22 12L34 30" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M14 30L22 18L30 30" stroke="#f4833d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </div>
           <div className="logo-text">
             <span className="logo-name">SK &amp; MS</span>
             <span className="logo-sub">IT Consulting</span>
           </div>
-        </a>
+        </Link>
 
-        {/* Desktop Nav */}
         <nav className="header__nav">
           <ul className="nav-list">
             {navItems.map((item) => (
@@ -103,10 +118,21 @@ export default function Header() {
                     <ul className="dropdown-list">
                       {item.children.map((child) => (
                         <li key={child.label}>
-                          <a href={child.href} className="dropdown-link">
-                            <span className="dropdown-arrow">→</span>
-                            {child.label}
-                          </a>
+                          {isRoute(child.href) ? (
+                            <Link
+                              to={child.href}
+                              className="dropdown-link"
+                              onClick={() => handleChildClick(child.href)}
+                            >
+                              <span className="dropdown-arrow">→</span>
+                              {child.label}
+                            </Link>
+                          ) : (
+                            <a href={child.href} className="dropdown-link">
+                              <span className="dropdown-arrow">→</span>
+                              {child.label}
+                            </a>
+                          )}
                         </li>
                       ))}
                     </ul>
@@ -117,12 +143,8 @@ export default function Header() {
           </ul>
         </nav>
 
-        {/* CTA */}
-        <a href="#contact" className="header__cta">
-          Contact Us →
-        </a>
+        <a href="#contact" className="header__cta">Contact Us →</a>
 
-        {/* Mobile Toggle */}
         <button className="header__hamburger" onClick={() => setMobileOpen(!mobileOpen)}>
           <span className={mobileOpen ? 'bar bar--open' : 'bar'}></span>
           <span className={mobileOpen ? 'bar bar--open' : 'bar'}></span>
@@ -130,7 +152,6 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
       <div className={`mobile-menu ${mobileOpen ? 'mobile-menu--open' : ''}`}>
         <ul className="mobile-nav">
           {navItems.map((item) => (
@@ -148,9 +169,23 @@ export default function Header() {
                 <ul className="mobile-dropdown">
                   {item.children.map((child) => (
                     <li key={child.label}>
-                      <a href={child.href} className="mobile-dropdown-link" onClick={() => setMobileOpen(false)}>
-                        {child.label}
-                      </a>
+                      {isRoute(child.href) ? (
+                        <Link
+                          to={child.href}
+                          className="mobile-dropdown-link"
+                          onClick={() => handleChildClick(child.href)}
+                        >
+                          {child.label}
+                        </Link>
+                      ) : (
+                        <a
+                          href={child.href}
+                          className="mobile-dropdown-link"
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          {child.label}
+                        </a>
+                      )}
                     </li>
                   ))}
                 </ul>
